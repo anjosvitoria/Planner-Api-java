@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/trips")
 public class TripController {
-    public ResponseEntity<String> createTrip(@RequestBody){
+    public ResponseEntity<String> createTrip(@RequestBody TripRequestPayload payload){
+        Trip newTrip = new Trip (payload);
 
     }
 }
