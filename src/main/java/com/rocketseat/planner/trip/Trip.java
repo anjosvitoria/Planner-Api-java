@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Entity
@@ -41,7 +42,9 @@ public class Trip {
         this.destination = data.destination();
         this.isConfirmed = false;
         this.ownerEmail = data.owner_email();
-        this.startsAt = LocalDateTime.parse(data.start_at());
-        
+        this.startsAt = LocalDateTime.parse(data.start_at(), DateTimeFormatter.ISO_DATE_TIME);
+        this.endsAt = LocalDateTime.parse(data.end_start_at(), DateTimeFormatter.ISO_DATE_TIME);
+
+
     }
 }
