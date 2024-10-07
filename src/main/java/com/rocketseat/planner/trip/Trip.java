@@ -1,21 +1,28 @@
 package com.rocketseat.planner.trip;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.UUID;
-
 @Entity
+@Table(name = "trips")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Trip {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -30,7 +37,7 @@ public class Trip {
     private LocalDateTime endsAt;
 
     @Column(name = "is_confirmed", nullable = false)
-    private boolean isConfirmed;
+    private Boolean isConfirmed;
 
     @Column(name = "owner_name", nullable = false)
     private String ownerName;
@@ -42,9 +49,8 @@ public class Trip {
         this.destination = data.destination();
         this.isConfirmed = false;
         this.ownerEmail = data.owner_email();
-        this.startsAt = LocalDateTime.parse(data.start_at(), DateTimeFormatter.ISO_DATE_TIME);
-        this.endsAt = LocalDateTime.parse(data.end_start_at(), DateTimeFormatter.ISO_DATE_TIME);
-
-
+        this.ownerName = data.owner_name();
+        this.startsAt = LocalDateTime.parse(data.starts_at(), DateTimeFormatter.ISO_DATE_TIME);
+        this.endsAt = LocalDateTime.parse(data.ends_at(), DateTimeFormatter.ISO_DATE_TIME);
     }
 }
