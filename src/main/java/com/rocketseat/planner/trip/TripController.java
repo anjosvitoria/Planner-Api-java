@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -35,5 +37,40 @@ public class TripController {
         Optional<Trip> trip = this.repository.findById(id);
 
         return trip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Trip> updateTrip(@PathVariable UUID id, @RequestBody TripRequestPayload payload){
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if (trip.isPresent()){
+            Trip rawTrip = trip.get();
+            rawTrip.setEndsAt(LocalDateTime.parse(payload.ends_at(), DateTimeFormatter.ISO_DATE_TIME));
+            rawTrip.setStartsAt(LocalDateTime.parse(payload.starts_at(), DateTimeFormatter.ISO_DATE_TIME));
+            rawTrip.setDestination((payload.destination()));
+
+            this.repository.save(rawTrip);
+
+            return ResponseEntity.ok(rawTrip);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/confirm")
+    public ResponseEntity<Trip> confirmTrip(@PathVariable UUID id){
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if (trip.isPresent()){
+            Trip rawTrip = trip.get();
+            rawTrip.setIsConfirmed((true));
+
+            this.repository.save(rawTrip);
+            this.participantService.triggerConfirmationEmailParticipants(id);
+
+            return ResponseEntity.ok(rawTrip);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
