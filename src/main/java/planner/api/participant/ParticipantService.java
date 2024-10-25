@@ -1,12 +1,11 @@
-package com.rocketseat.planner.participant;
+package planner.api.participant;
 
-import com.rocketseat.planner.trip.Trip;
+import planner.api.trip.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ParticipantService {

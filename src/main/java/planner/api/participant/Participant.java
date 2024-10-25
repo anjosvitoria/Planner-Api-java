@@ -1,6 +1,6 @@
-package com.rocketseat.planner.participant;
+package planner.api.participant;
 
-import com.rocketseat.planner.trip.Trip;
+import planner.api.trip.Trip;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

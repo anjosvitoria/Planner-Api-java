@@ -1,4 +1,4 @@
-package com.rocketseat.planner;
+package planner.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

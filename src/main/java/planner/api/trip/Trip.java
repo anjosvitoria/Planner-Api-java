@@ -1,4 +1,4 @@
-package com.rocketseat.planner.trip;
+package planner.api.trip;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

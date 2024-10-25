@@ -1,4 +1,4 @@
-package com.rocketseat.planner.trip;
+package planner.api.trip;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

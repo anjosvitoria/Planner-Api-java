@@ -1,18 +1,20 @@
-package com.rocketseat.planner.trip;
+package planner.api.trip;
 
-import com.rocketseat.planner.activities.ActivitiesRequestPayload;
-import com.rocketseat.planner.activities.ActivityData;
-import com.rocketseat.planner.activities.ActivityResponse;
-import com.rocketseat.planner.activities.ActivityService;
+import planner.api.activity.ActivitiesRequestPayload;
+import planner.api.activity.ActivityData;
+import planner.api.activity.ActivityResponse;
+import planner.api.activity.ActivityService;
 import com.rocketseat.planner.participant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
+import planner.api.participant.ParticipantCreateResponse;
+import planner.api.participant.ParticipantRequestPayload;
+import planner.api.participant.ParticipantService;
+import planner.api.participant.ParticipantsData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
