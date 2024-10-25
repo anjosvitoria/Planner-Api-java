@@ -24,6 +24,6 @@ public class ActivityService {
         return this.repository.findByTripId(tripId).stream().map(activity -> new ActivityData
                         (activity.getId(),
                         activity.getTitle(),
-                        activity.getOccursAt())).toList();
+                        activity.getOccurs_at())).toList();
     }
 }

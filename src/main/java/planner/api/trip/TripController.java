@@ -4,10 +4,13 @@ import planner.api.activity.ActivitiesRequestPayload;
 import planner.api.activity.ActivityData;
 import planner.api.activity.ActivityResponse;
 import planner.api.activity.ActivityService;
-import com.rocketseat.planner.participant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import planner.api.links.LinkData;
+import planner.api.links.LinkRequestPayload;
+import planner.api.links.LinkResponse;
+import planner.api.links.LinkService;
 import planner.api.participant.ParticipantCreateResponse;
 import planner.api.participant.ParticipantRequestPayload;
 import planner.api.participant.ParticipantService;
@@ -28,6 +31,9 @@ public class TripController {
 
     @Autowired
     private ActivityService activityService;
+
+    @Autowired
+    private LinkService linkService;
 
     @Autowired
     private TripRepository repository;
@@ -133,5 +139,30 @@ public class TripController {
         return ResponseEntity.notFound().build();
 
     }
+
+    @GetMapping("/{id}/links")
+    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable UUID id){
+        List<LinkData> linkDataList = this.linkService.getAllLinkFromId(id);
+
+        return ResponseEntity.ok(linkDataList);
+    }
+
+    @PostMapping ("/{id}/Links")
+    public ResponseEntity<LinkResponse> registerLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload){
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if (trip.isPresent()){
+            Trip rawTrip = trip.get();
+
+            LinkResponse linkResponse = this.linkService.registerLink(payload, rawTrip);
+
+
+            return ResponseEntity.ok(linkResponse);
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
 
 }

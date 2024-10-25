@@ -1,45 +1,40 @@
-package planner.api.activity;
+package planner.api.links;
 
-import planner.api.trip.Trip;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import planner.api.trip.Trip;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Entity
-@Table(name="activities")
+@Table(name="links")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Activity {
+public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(nullable = false)
-    private String title;
+    private String url;
 
     @Column(nullable = false)
-    private LocalDateTime occurs_at;
+    private String title;
 
     @ManyToOne
     @JoinColumn(name="trip_id", nullable = false)
     private Trip trip;
 
-    public Activity(String title, String occurs_at, Trip trip){
+    public Link(String title, String url, Trip trip) {
         this.title = title;
-        this.occurs_at = LocalDateTime.parse(occurs_at, DateTimeFormatter.ISO_DATE_TIME);
+        this.url = url;
         this.trip = trip;
     }
-
 }
-
-
-
