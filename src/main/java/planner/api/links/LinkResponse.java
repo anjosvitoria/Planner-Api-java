@@ -2,5 +2,5 @@ package planner.api.links;
 
 import java.util.UUID;
 
-public record LinkResponse(UUID LinkId) {
+public record LinkResponse(UUID linkId) {
 }
